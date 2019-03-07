@@ -4,7 +4,7 @@
 
   <groupId>com.github.ctjoreilly</groupId>
   <artifactId>test.single.public.module.two</artifactId>
-  <version>1.0.4-SNAPSHOT</version>
+  <version>1.0.5-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <scm>
