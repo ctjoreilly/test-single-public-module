@@ -8,9 +8,10 @@
   <packaging>jar</packaging>
 
   <scm>
-    <url>https://github.com/ctjoreilly/test-single-public-module/</url>
+    <url>https://github.com/ctjoreilly/test-single-public-module/tree/${scm.tag}</url>
     <connection>scm:git:https://github.com/ctjoreilly/test-single-public-module.git</connection>
     <developerConnection>scm:git:https://github.com/ctjoreilly/test-single-public-module.git</developerConnection>
+    <tag>master</tag>
   </scm>
 
   <properties>
