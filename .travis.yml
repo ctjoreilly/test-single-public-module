@@ -3,5 +3,30 @@ language: java
 jdk:
   - openjdk8
 
-script:
-  - mvn clean test
+stages:
+  - test
+  - name: release
+    if: branch = master
+
+env:
+  global:
+    # BINTRAY_USERNAME
+    - secure: "HvIZoq8VRRcjA+Gg2s1qEquAAMd/u53IDa6jpE8hj5ihKFGXJaRr5szqBq31iyNRv36sTnJktACXXT7vQmucjlQMRQ2qqA5J3rA/VTb8IkYFxQ5+dE/oqe1YjFtRbOvOs7+ujeIA9m6FS9dl2mbs1TkaHLkjNf//5UQskEpI7Y0Q69Bht0XRJS/IRCAz/9gBDzjMENjrCndZo1I/yehSm7gPApItWfAXbJPtkpe6aIHTDw/3nr2Y4ujQkPn3GpjUzUn+FAtMsegU6COpcB8bxX0m58zF6sIJbPwZ69fpKcPls9i0wX8UhE4pV2Mvw51mDZNnnJoUS9XXKCIUv2ms6ooepva6RF45KkuYnPQW2aECI/xiJiUQsfxl/bECjn51yWxQJvaFCDY/VHqI5763hh0AjnWUqvXfff0twac2CzB0QQD44fW7g6x5xPoWXcZi9uYzaaV0WCaCgqOMgFEuHAoTyFQcr0+wjX1PP3M6C8G/X28o2EVa2enFTncu/6y80+1YfTk/mP9EMb9meR+9OgbuXIt91mDTpy+RWDZZ7bvhw03hK6p44qLgO4+iuVfdJWx2ga9h9SddSdmSyUzsxHvrETZ9XkVANp/VFLNcj5wAXszueoJcET6PGCjwrNf1zx1MJSL/5SBC9IoVTY8X2orGyIHFe560ds1gYHLnzz8="
+    # BINTRAY_PASSWORD
+    - secure: "MfBzka0uasa6R25RoNzSF1LZ4fceKMG+ifjvsW9gImRYmT1bI0sAvje88e/D7nuqG/ISUOdleeosVs/0YfyZVMxdxdf2D90qZAmlIKWvCUkalMbzdx5Sss3Ub62taCJW8ME3iGWFnLagvhzzxOfBbUYfzdwCuPtD2VbWFdr9On1jbwzNZYvrN0y2hmlMI+IrEpJkaOlo9O8CQOw/ftX2GKmidM7H1Vw2h+6uylZAViKAyFK8drAOkpHJKps0BfLNJ92qy66r1FMM2kYhdAyHbG+kWPr+hmBMg3mDcBurELbkHEyuTN2t5EYtFiBg/DxamQ7pMzRKYFCextrX42CLii2XECjhCtyNjZpa26Ts02XRHTQhMYth4BS7+VPR2fqso7ekd214Z9PAXargIVyAcaFCWnJQ0wFbJc+YmuqQyxjFR6c6oOiq6okMa8ptvrbDIz67MtYj6cYrmxvHG8IA8VHjGnqbVDJY2vG7coxJ28yQ8yxMc3KL8ifA9Ujo01RS8Mohub1OHPIwpMw3o0OluH0XVbizhNdfiR2OHJSEvH8L325Kq3UzZi8rKn21BL9tg2bRcOj3a6hvlWMhppIu9p/6TMJfK2jrxgoRhDh/RZ2X518flZnCLLzYkYhVCWd18QxQBzXaEtMZ8WusNuhMkyEj0R+FKN8h6bWQ7E52RR8="
+    # GITHUB_USERNAME
+    - secure: "eQkD6wfuoUPPHxQJ6cCVJ141TV7gbRnAPj6misu50ckvvt/0jw+bqqH3eHoJqfCk1F1nzThRgTUGTfkFXlItNF5KMGB4w1CcdFeo3gy6eOPXD5Qk4jOHo77Jz2ymWHadScI8Zz/+ggs1S/1gB0A0xvvSfJcgbA2XiXfFpYGFEP+Y/vqlKVA5LJb3Xt8E/jz69ZwW1/oC/WMpJjkGQ444wHnEWtomzSeYt5H5pvcHuU5ALUpDkrz7iAN4z2aXvCPQrClze7Ze52xbYIGvWj3egrS4dX3UdvnUv1+D3p+iWQRnX6jqjkvBNzHExizIDJ1K+wUTHTPEbWoN/Cu0KZSk0f33te+5dxg/3ixVlbB0nmUZdvysQN3LzbiwM/mBlA+bW+kRz1T818N2YYS2opBShNO+/pq3uL0oQkuryw+ZoyFWcue/bCHH6aTaqnjvDbxtgUkZ5uZEl1dFt5XIz/gkSlXMPEEcNQtBGpvMFigmnzern/Qfibr8yPaD+7DKh4WLY8iahRLyzn6ixl0kuRYdx9r4LWpASWvXHs1YcjH5gcP96Geb6HJ/4Rt2mdv/Ea0wtICMHqaRTmSyB9qGz7pXmB0n8fGnED06n9Dkob0rd+jV7COt2x+wbdZebAbxsBGTWnKqeqp5DK6wbPAfOfEw7y/W6mCl1r9NBK+z0VpfaJc="
+    # GITHUB_PASSWORD
+    - secure: "sv98+sBX2JGtsey4bK4m+ynGPKA8a8UjwrWq+S2LVR9hQXQ4GZT7Nv+HTFwaCmeEY2VJkP7TCP1QnlkZPoiEbYqGsXZFf+WBakRc3qL8uASQ7J1TkUuqi+akHPI4/FJeDR5XJEESQGrPN/MhECD4d+3U8G7aIIfkqW6c4g0p1nX9HzqVPuAMcl4au6sSaOnQIjtnUYlA2rlY9AyGoAIBS0/5XcUEprBXtkZ7tf6dDdjiUat2GpV6Pt0Gp2KpHueJUzR/NZTPQBqhM8CZYLziaRQhHwuagGuFrhzlzqV0OiA94f72z508+D7/z/vr/IoNuOgtN5Y2Rtllen7UKQoD8UvS3iJKuUVGSI1Xa1keVsEYUHKLfI8Us2bcoxhkj6GeAFxWIEr8bZvf+JT8xrD+mFKDRisWDi+Nbg9Su7/Ihn0FHbDRbVXGGxP5SSC9DK7x7nvgJqtUmyHKEC00fRCog/O2XjoztLWmAqNRAFIJtAc6doIRKZluQJmppXlGTWLhL8c2McqMnvdM4e4MvB2/dl0I9oRqgVAgErjtVUABDpy9barQ3Nst5+hv02iVxTTrp0fDPtJgntvrBIuy55bXhHs+Xhh/w4XK0BqdVRmq19CUc7Ua2FcU6PiGWF+Cq67guUEmqMBYgIwLwX/0qfzIdvWwotzglRLaemCHLFFFRzI="
+
+jobs:
+  include:
+    # default 'test' stage
+    - script:
+      - mvn clean test
+      - mvn --batch-mode relese:prepare -DdryRun=true # Ensure we don't have any external SNAPSHOT dependencies
+    - stage: release
+    - script:
+      - cp ./travis/maven-setttings.xml $HOME/.m2/settings.xml
+      - mvn --batch-mode release:prepare
+      - mvn release:perform -Pbintray

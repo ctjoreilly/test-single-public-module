@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns='http://maven.apache.org/SETTINGS/1.0.0'
+          xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd'
+          xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+
+    <profiles>
+        <profile>
+            <id>bintray</id>
+            <repositories>
+                <repository>
+                    <id>bintray-ctjoreilly-test-maven-repository</id>
+                    <name>bintray</name>
+                    <url>https://dl.bintray.com/ctjoreilly/test-maven-repository</url>
+                    <snapshots>
+                        <!-- NOTE: bintray does not support snapshots -->
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>central</id>
+                    <url>http://central</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+
+    <servers>
+      <server>
+        <id>bintray-ctjoreilly-test-maven-repository</id>
+        <username>${env.BINTRAY_USERNAME}</username>
+        <password>${env.BINTRAY_PASSWORD}</password>
+      </server>
+      <server>
+        <id>github.com</id>
+        <username>${env.GITHUB_USERNAME}</username>
+        <password>${env.GITHUB_PASSWORD}</password>
+      </server>
+    </servers>
+
+</settings>
+
