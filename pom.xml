@@ -28,11 +28,6 @@
     -->
     <version.junit>4.12</version.junit>
     <version.slf4j>1.7.25</version.slf4j>
-
-    <!--
-      Bintray Distribution
-    -->
-    <bintray.repo>bintray-examples/repo</bintray.repo>
   </properties>
 
   <distributionManagement>
