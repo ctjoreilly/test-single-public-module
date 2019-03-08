@@ -21,12 +21,12 @@ env:
 
 jobs:
   include:
-    # default 'test' stage
-    - script:
-      - mvn clean test
-      - mvn --batch-mode release:prepare -DdryRun=true # Ensure we don't have any external SNAPSHOT dependencies
+    - stage: test
+      script:
+        - mvn clean test
+        - mvn --batch-mode release:prepare -DdryRun=true # Ensure we don't have any external SNAPSHOT dependencies
     - stage: release
-    - script:
-      - cp ./travis/maven-settings.xml $HOME/.m2/settings.xml
-      - mvn --batch-mode release:prepare
-      - mvn release:perform -Pbintray
+      script:
+        - cp ./travis/maven-settings.xml $HOME/.m2/settings.xml
+        - mvn --batch-mode release:prepare
+        - mvn release:perform -Pbintray
