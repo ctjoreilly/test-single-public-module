@@ -25,6 +25,12 @@ jobs:
         # GITHUB_PASSWORD
         - secure: "sv98+sBX2JGtsey4bK4m+ynGPKA8a8UjwrWq+S2LVR9hQXQ4GZT7Nv+HTFwaCmeEY2VJkP7TCP1QnlkZPoiEbYqGsXZFf+WBakRc3qL8uASQ7J1TkUuqi+akHPI4/FJeDR5XJEESQGrPN/MhECD4d+3U8G7aIIfkqW6c4g0p1nX9HzqVPuAMcl4au6sSaOnQIjtnUYlA2rlY9AyGoAIBS0/5XcUEprBXtkZ7tf6dDdjiUat2GpV6Pt0Gp2KpHueJUzR/NZTPQBqhM8CZYLziaRQhHwuagGuFrhzlzqV0OiA94f72z508+D7/z/vr/IoNuOgtN5Y2Rtllen7UKQoD8UvS3iJKuUVGSI1Xa1keVsEYUHKLfI8Us2bcoxhkj6GeAFxWIEr8bZvf+JT8xrD+mFKDRisWDi+Nbg9Su7/Ihn0FHbDRbVXGGxP5SSC9DK7x7nvgJqtUmyHKEC00fRCog/O2XjoztLWmAqNRAFIJtAc6doIRKZluQJmppXlGTWLhL8c2McqMnvdM4e4MvB2/dl0I9oRqgVAgErjtVUABDpy9barQ3Nst5+hv02iVxTTrp0fDPtJgntvrBIuy55bXhHs+Xhh/w4XK0BqdVRmq19CUc7Ua2FcU6PiGWF+Cq67guUEmqMBYgIwLwX/0qfzIdvWwotzglRLaemCHLFFFRzI="
       script:
+        - echo "Fixing git setup for $TRAVIS_BRANCH"
+        - git checkout ${TRAVIS_BRANCH}
+        - git branch -u origin/${TRAVIS_BRANCH}
+        - git config branch.${TRAVIS_BRANCH}.remote origin
+        - git config branch.${TRAVIS_BRANCH}.merge refs/heads/${TRAVIS_BRANCH}
+        - echo "Main build steps"
         - cp ./travis/maven-settings.xml $HOME/.m2/settings.xml
         - mvn -e --batch-mode release:prepare
         - mvn release:perform -Pbintray
