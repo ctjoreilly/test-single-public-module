@@ -24,7 +24,7 @@ jobs:
     # default 'test' stage
     - script:
       - mvn clean test
-      - mvn --batch-mode relese:prepare -DdryRun=true # Ensure we don't have any external SNAPSHOT dependencies
+      - mvn --batch-mode release:prepare -DdryRun=true # Ensure we don't have any external SNAPSHOT dependencies
     - stage: release
     - script:
       - cp ./travis/maven-setttings.xml $HOME/.m2/settings.xml
