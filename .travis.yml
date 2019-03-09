@@ -18,20 +18,20 @@ jobs:
       env:
         # BINTRAY_USERNAME
         - secure: "HvIZoq8VRRcjA+Gg2s1qEquAAMd/u53IDa6jpE8hj5ihKFGXJaRr5szqBq31iyNRv36sTnJktACXXT7vQmucjlQMRQ2qqA5J3rA/VTb8IkYFxQ5+dE/oqe1YjFtRbOvOs7+ujeIA9m6FS9dl2mbs1TkaHLkjNf//5UQskEpI7Y0Q69Bht0XRJS/IRCAz/9gBDzjMENjrCndZo1I/yehSm7gPApItWfAXbJPtkpe6aIHTDw/3nr2Y4ujQkPn3GpjUzUn+FAtMsegU6COpcB8bxX0m58zF6sIJbPwZ69fpKcPls9i0wX8UhE4pV2Mvw51mDZNnnJoUS9XXKCIUv2ms6ooepva6RF45KkuYnPQW2aECI/xiJiUQsfxl/bECjn51yWxQJvaFCDY/VHqI5763hh0AjnWUqvXfff0twac2CzB0QQD44fW7g6x5xPoWXcZi9uYzaaV0WCaCgqOMgFEuHAoTyFQcr0+wjX1PP3M6C8G/X28o2EVa2enFTncu/6y80+1YfTk/mP9EMb9meR+9OgbuXIt91mDTpy+RWDZZ7bvhw03hK6p44qLgO4+iuVfdJWx2ga9h9SddSdmSyUzsxHvrETZ9XkVANp/VFLNcj5wAXszueoJcET6PGCjwrNf1zx1MJSL/5SBC9IoVTY8X2orGyIHFe560ds1gYHLnzz8="
-        # BINTRAY_PASSWORD
-        - secure: "MfBzka0uasa6R25RoNzSF1LZ4fceKMG+ifjvsW9gImRYmT1bI0sAvje88e/D7nuqG/ISUOdleeosVs/0YfyZVMxdxdf2D90qZAmlIKWvCUkalMbzdx5Sss3Ub62taCJW8ME3iGWFnLagvhzzxOfBbUYfzdwCuPtD2VbWFdr9On1jbwzNZYvrN0y2hmlMI+IrEpJkaOlo9O8CQOw/ftX2GKmidM7H1Vw2h+6uylZAViKAyFK8drAOkpHJKps0BfLNJ92qy66r1FMM2kYhdAyHbG+kWPr+hmBMg3mDcBurELbkHEyuTN2t5EYtFiBg/DxamQ7pMzRKYFCextrX42CLii2XECjhCtyNjZpa26Ts02XRHTQhMYth4BS7+VPR2fqso7ekd214Z9PAXargIVyAcaFCWnJQ0wFbJc+YmuqQyxjFR6c6oOiq6okMa8ptvrbDIz67MtYj6cYrmxvHG8IA8VHjGnqbVDJY2vG7coxJ28yQ8yxMc3KL8ifA9Ujo01RS8Mohub1OHPIwpMw3o0OluH0XVbizhNdfiR2OHJSEvH8L325Kq3UzZi8rKn21BL9tg2bRcOj3a6hvlWMhppIu9p/6TMJfK2jrxgoRhDh/RZ2X518flZnCLLzYkYhVCWd18QxQBzXaEtMZ8WusNuhMkyEj0R+FKN8h6bWQ7E52RR8="
-        # GITHUB_USERNAME
+        # BINTRAY_API_TOKEN
+        - secure: "SgFIJDcm94e5Q19/JmzSN9+pkRzBKHIWoHneOHH40GnUVZbaxyvzqmn9ff+q84QOa8gWQoAGXkJY0mOmqN/c8zPfkKWXwwLjd4d+anQPB6DabIiFHm1cWNGciGZDxcETwWEniNIS7jotxzQc+osLhAUgxjmN9Mpx9KJXtanfMrjUCQ99snbfNzjjY2NvdrXU6D2TZER6klxbM214yT9sIl+8VHZimn5KvNxBwD6dABMs7oTjupu+il2EGSMgRrI1/zk1nMEsw6siYojdL2DAgM09dKTd/ip2CtYVtKN99WIwTE3cMSlY3jqTlyc0OOaIHrNARnuoomeIaznzlzNMtK+iuQd+7r4YsB6RSzG1onN8MUs58XZveLoMUPCGSSE3NZYKqindtoZS2mgefa8zkvRgjHAIrow+XT/JyEfP9LCIZ565n2OOWjS/Thdn06aFJHOXs34nsbDHG52YuHJdWRi4bDaPt7cue800nzYC2I6vO96Oae/6adhTkzz2Z24U8HpuuXQnLKkF+4cia3eMhSo6soG+dAnMiFhtaf0xdtio5bnM6Dgj72teiHYuZ74LxN+XTM660He6x2ALc0kjs54vRij+581RKrerO54tNFz4H3NhEBfAiGQkwVooIDMvxJN31M77dkcnEJE3BXhQ7T6iXq0ui83+Q4J3vCtqlPU="
+          # GITHUB_USERNAME
         - secure: "eQkD6wfuoUPPHxQJ6cCVJ141TV7gbRnAPj6misu50ckvvt/0jw+bqqH3eHoJqfCk1F1nzThRgTUGTfkFXlItNF5KMGB4w1CcdFeo3gy6eOPXD5Qk4jOHo77Jz2ymWHadScI8Zz/+ggs1S/1gB0A0xvvSfJcgbA2XiXfFpYGFEP+Y/vqlKVA5LJb3Xt8E/jz69ZwW1/oC/WMpJjkGQ444wHnEWtomzSeYt5H5pvcHuU5ALUpDkrz7iAN4z2aXvCPQrClze7Ze52xbYIGvWj3egrS4dX3UdvnUv1+D3p+iWQRnX6jqjkvBNzHExizIDJ1K+wUTHTPEbWoN/Cu0KZSk0f33te+5dxg/3ixVlbB0nmUZdvysQN3LzbiwM/mBlA+bW+kRz1T818N2YYS2opBShNO+/pq3uL0oQkuryw+ZoyFWcue/bCHH6aTaqnjvDbxtgUkZ5uZEl1dFt5XIz/gkSlXMPEEcNQtBGpvMFigmnzern/Qfibr8yPaD+7DKh4WLY8iahRLyzn6ixl0kuRYdx9r4LWpASWvXHs1YcjH5gcP96Geb6HJ/4Rt2mdv/Ea0wtICMHqaRTmSyB9qGz7pXmB0n8fGnED06n9Dkob0rd+jV7COt2x+wbdZebAbxsBGTWnKqeqp5DK6wbPAfOfEw7y/W6mCl1r9NBK+z0VpfaJc="
-        # GITHUB_PASSWORD
-        - secure: "sv98+sBX2JGtsey4bK4m+ynGPKA8a8UjwrWq+S2LVR9hQXQ4GZT7Nv+HTFwaCmeEY2VJkP7TCP1QnlkZPoiEbYqGsXZFf+WBakRc3qL8uASQ7J1TkUuqi+akHPI4/FJeDR5XJEESQGrPN/MhECD4d+3U8G7aIIfkqW6c4g0p1nX9HzqVPuAMcl4au6sSaOnQIjtnUYlA2rlY9AyGoAIBS0/5XcUEprBXtkZ7tf6dDdjiUat2GpV6Pt0Gp2KpHueJUzR/NZTPQBqhM8CZYLziaRQhHwuagGuFrhzlzqV0OiA94f72z508+D7/z/vr/IoNuOgtN5Y2Rtllen7UKQoD8UvS3iJKuUVGSI1Xa1keVsEYUHKLfI8Us2bcoxhkj6GeAFxWIEr8bZvf+JT8xrD+mFKDRisWDi+Nbg9Su7/Ihn0FHbDRbVXGGxP5SSC9DK7x7nvgJqtUmyHKEC00fRCog/O2XjoztLWmAqNRAFIJtAc6doIRKZluQJmppXlGTWLhL8c2McqMnvdM4e4MvB2/dl0I9oRqgVAgErjtVUABDpy9barQ3Nst5+hv02iVxTTrp0fDPtJgntvrBIuy55bXhHs+Xhh/w4XK0BqdVRmq19CUc7Ua2FcU6PiGWF+Cq67guUEmqMBYgIwLwX/0qfzIdvWwotzglRLaemCHLFFFRzI="
+        # GITHUB_TOKEN
+        - secure: "Lz2KUWYPl1dthRnF5x4gle4o6IazTx/MA2jR2rV6m2ZjppFgJ/PVMCXthkNXNcQtU9KfgKpfPbRsdMUy/COAuPnGaKz3+nIgotuFU33r7b7v64AJAs6Evo3zbhZQfidaGZUHx1JsDHLUlwCvdi45gsH3zICO47x43LV4gYvEDcELMkNcOPIRDeAKRqtgLI6bppmcRf9gKhkaO1t+W/+xNyC2b44ANJP02uCyLI6cWbtSVnw7WIQaFAlD9+vJ/zDJ+tGH4XtOtK6xU/0m7FDv8HEA8TTEFTqZbamDXOQH0YEEKi/7USv7xRvdqCNwVhFj7UkPe4E7sNGr1zdigxvEJsdjEthFOW9NCX7gBogmMvnLo0PMg++uvGRAk9oQ9jts8ik0kCixEwAHQ9I8oQAcEfSOL7LEq8v/dhennCC0LwK3BLlCAhQWW+tCvv92PArzlml/b7kqTxZGlZ4DA+7xjrPGhRX4NnzzPX+glTrTz68X3IsmAdntKjBfG0Nw3Wnh7Mkvxwezil1SWI+3YvdPQ85CCAeAnDR94SFFm7zEBpsSXgod1lnZz6CsjCK7G+IDCaojkYJzL7YhA4rZrpNwvDziNa01hi4Fo8vSqBV7cG4FOqhqBWEscgSF5EX5bhN/RS3SOjQ7EVVrpuht3VUkiaoE52NKcNI77MJgGTYLxBU="
       script:
         # Git fix based on: https://github.com/sbt/sbt-release/issues/210
-        - echo "Fixing git setup for $TRAVIS_BRANCH"
+        - echo "Fixing git setup for $TRAVIS_BRANCH in preparation for release"
         - git checkout ${TRAVIS_BRANCH}
         - git branch -u origin/${TRAVIS_BRANCH}
         - git config branch.${TRAVIS_BRANCH}.remote origin
         - git config branch.${TRAVIS_BRANCH}.merge refs/heads/${TRAVIS_BRANCH}
-        - echo "Main build steps"
+        - echo "Main release steps"
         - cp ./travis/maven-settings.xml $HOME/.m2/settings.xml
         - mvn -e --batch-mode release:prepare -DscmCommentPrefix="[maven-release-plugin][skip travis]"
         - mvn release:perform -Pbintray
