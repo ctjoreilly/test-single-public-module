@@ -34,8 +34,8 @@ jobs:
       script:
         # Release Docker Image(s)
         - echo "Docker image(s) release steps"
+        # NOTE: a 'mvn install' has already occurred at this point, so no need to repeat.
         - echo "$DOCKER_API_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin ctjoreilly-docker-test-image-repository.bintray.io
-        - mvn clean package
         - cd ./target
         - cp ./classes/Dockerfile .
         - cp ./classes/docker-*.sh .
