@@ -8,11 +8,15 @@ jdk:
 
 stages:
   - test
-  - name: release
+  # NOTE: release docker images first as this step does not make any changes to the GitHub repository.
+  - name: release-docker-images
+    if: branch = master
+  # NOTE: this stage will perform tagging commits to the GitHub repository, why we run last
+  - name: release-maven-artifacts
     if: branch = master
 
 before_install:
-  # Ensure the settings we want to use are in place before runing the default mvn install
+  # Ensure the settings we want to use are in place before running the default mvn install
   - cp ./travis/maven-settings.xml $HOME/.m2/settings.xml
 
 jobs:
@@ -21,7 +25,24 @@ jobs:
       script:
         - mvn clean test
         - mvn --batch-mode release:prepare -DdryRun=true # Ensure we don't have any external SNAPSHOT dependencies
-    - stage: release
+    - stage: release-docker-images
+      env:
+        # DOCKER_USERNAME
+        - secure: "JqFkJs0Zn8L+Ig6292quSdS+1kLNhDh4JlFfRzdjSDFMxKtrVHSA290e3pMHOY5gm5YE5/cM3RkaQ6f5I2p2XU5V+5N1cEGKvTcBq0H7JpXJtIwPWTMxyjtEHhzjYlwdkmfyU1ALGlZtTE/1O3H2UYeluvwrfHplXaL86kF4O3dSQdXh6Q2AS8A74lWe+SpZTQTPH1onvSxjoP5WOi9/Rzq+5zSMfPJO4Z+01wUpkQIyXnbLBFkOnlINfbz0dFiZzyn4c/3S86BZGT82d8s2xOnDC1fYREzuJ5Jeeh0x2arN+ef97z/An6Mly8K7LGScjfPZrXVIhZefe4X5/Xz3j5oq0t7EY7/+qiJaWeDGlUiZFX/xWk5wsnNyqLQwt8/Rzn1HuIju5ilBHpShIFvwPjCbb7gMHHD6FKzfR73N0cgi7xfFJMrpz9KIGNHgg7Ge4mLU5PXGWbWP1ZAKQ55HuIcwvL4SXiu4Riz+mfmRyAAFTkvVSHdWk2Qmt5LsC+BMZYubYLsJstBVa9lNT1ReVxfD66FFZoTXp7gb25RGp+Ni4FEZNAWhlZ316jT85co/7J9a0ogh7NQCdufLQfN119N870gNvd+yc2pQ0lrtfwVdRqUHraxgluQjNIJx1e92cMIYcVmByuQa7kcDr4WukDiHScnj3AHlVhiMtzx//b8="
+        # DOCKER_API_TOKEN
+        - secure: "g4aB7UxndZFadqSQG12g9zP8Knj2MSCJxqDCHm03kSqSkc2A0BeYBsWYB0+xXgmjQMyaD+MXIYEX8sM+mh47+yqPKkuB+N14L3MgUcfG8MN7XxrDhDV7YICsEpGYC8Vq5ZBqiRQGeLyPHOZI3faD2kxqZ0wSXvUyeieeZBNMub83HrX4oCA6INaQhCZTllC4Bfi84KhnDuVy59fv6p02V/Wy69pxbXk8TW58k7U8B6+mSuUyRDiE4OQcr73/1o3nfbXxPmQJ9K0R2Q1XX4kMMGEpPTtX9tnI4KDjrkUa0i6VrBjRuwF0ugHryX/nDZFjv8ukugFzAvz++9+hZowFrq4bSRPVve0IGrRXC75raPGIGanq1+2BV/40VLnmg3Zor6QBOCNxxNDFN9T6vCMA3bAPTOR/fWdKb67pWFdcGD7bucO2FNDczereEWg/uApOb/HuHikU5YwIE+URusXKNQjkEDLSCv9I8W4Eb43uztZFPD4F4HGex7qIRK6qnFktGI/C9g337U+TW7QkuA6sqt43yXV7ptSekO5SGBxj6biyyd1DRR5LZUXTOiYyEWrcXM93TbKYKTk24A8jHyarGjpICk1sD8WytyWKAXQlK8ATB/5myEKfEJAtGq+4TtD3I2NwZJF439FQwJJVIKLwx8EuKF+ba+vPHnNQVkbhG34="
+      script:
+        # Release Docker Image(s)
+        - echo "Docker image(s) release steps"
+        - echo "$DOCKER_API_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin ctjoreilly-docker-test-image-repository.bintray.io
+        - mvn clean package
+        - cd ./target
+        - cp ./classes/Dockerfile .
+        - cp ./classes/docker-*.sh .
+        - chmod 764 *.sh
+        - ./docker-build.sh
+        - ./docker-push.sh
+    - stage: release-maven-artifacts
       env:
         # BINTRAY_USERNAME
         - secure: "HvIZoq8VRRcjA+Gg2s1qEquAAMd/u53IDa6jpE8hj5ihKFGXJaRr5szqBq31iyNRv36sTnJktACXXT7vQmucjlQMRQ2qqA5J3rA/VTb8IkYFxQ5+dE/oqe1YjFtRbOvOs7+ujeIA9m6FS9dl2mbs1TkaHLkjNf//5UQskEpI7Y0Q69Bht0XRJS/IRCAz/9gBDzjMENjrCndZo1I/yehSm7gPApItWfAXbJPtkpe6aIHTDw/3nr2Y4ujQkPn3GpjUzUn+FAtMsegU6COpcB8bxX0m58zF6sIJbPwZ69fpKcPls9i0wX8UhE4pV2Mvw51mDZNnnJoUS9XXKCIUv2ms6ooepva6RF45KkuYnPQW2aECI/xiJiUQsfxl/bECjn51yWxQJvaFCDY/VHqI5763hh0AjnWUqvXfff0twac2CzB0QQD44fW7g6x5xPoWXcZi9uYzaaV0WCaCgqOMgFEuHAoTyFQcr0+wjX1PP3M6C8G/X28o2EVa2enFTncu/6y80+1YfTk/mP9EMb9meR+9OgbuXIt91mDTpy+RWDZZ7bvhw03hK6p44qLgO4+iuVfdJWx2ga9h9SddSdmSyUzsxHvrETZ9XkVANp/VFLNcj5wAXszueoJcET6PGCjwrNf1zx1MJSL/5SBC9IoVTY8X2orGyIHFe560ds1gYHLnzz8="
@@ -31,10 +52,6 @@ jobs:
         - secure: "eQkD6wfuoUPPHxQJ6cCVJ141TV7gbRnAPj6misu50ckvvt/0jw+bqqH3eHoJqfCk1F1nzThRgTUGTfkFXlItNF5KMGB4w1CcdFeo3gy6eOPXD5Qk4jOHo77Jz2ymWHadScI8Zz/+ggs1S/1gB0A0xvvSfJcgbA2XiXfFpYGFEP+Y/vqlKVA5LJb3Xt8E/jz69ZwW1/oC/WMpJjkGQ444wHnEWtomzSeYt5H5pvcHuU5ALUpDkrz7iAN4z2aXvCPQrClze7Ze52xbYIGvWj3egrS4dX3UdvnUv1+D3p+iWQRnX6jqjkvBNzHExizIDJ1K+wUTHTPEbWoN/Cu0KZSk0f33te+5dxg/3ixVlbB0nmUZdvysQN3LzbiwM/mBlA+bW+kRz1T818N2YYS2opBShNO+/pq3uL0oQkuryw+ZoyFWcue/bCHH6aTaqnjvDbxtgUkZ5uZEl1dFt5XIz/gkSlXMPEEcNQtBGpvMFigmnzern/Qfibr8yPaD+7DKh4WLY8iahRLyzn6ixl0kuRYdx9r4LWpASWvXHs1YcjH5gcP96Geb6HJ/4Rt2mdv/Ea0wtICMHqaRTmSyB9qGz7pXmB0n8fGnED06n9Dkob0rd+jV7COt2x+wbdZebAbxsBGTWnKqeqp5DK6wbPAfOfEw7y/W6mCl1r9NBK+z0VpfaJc="
         # GITHUB_TOKEN
         - secure: "Lz2KUWYPl1dthRnF5x4gle4o6IazTx/MA2jR2rV6m2ZjppFgJ/PVMCXthkNXNcQtU9KfgKpfPbRsdMUy/COAuPnGaKz3+nIgotuFU33r7b7v64AJAs6Evo3zbhZQfidaGZUHx1JsDHLUlwCvdi45gsH3zICO47x43LV4gYvEDcELMkNcOPIRDeAKRqtgLI6bppmcRf9gKhkaO1t+W/+xNyC2b44ANJP02uCyLI6cWbtSVnw7WIQaFAlD9+vJ/zDJ+tGH4XtOtK6xU/0m7FDv8HEA8TTEFTqZbamDXOQH0YEEKi/7USv7xRvdqCNwVhFj7UkPe4E7sNGr1zdigxvEJsdjEthFOW9NCX7gBogmMvnLo0PMg++uvGRAk9oQ9jts8ik0kCixEwAHQ9I8oQAcEfSOL7LEq8v/dhennCC0LwK3BLlCAhQWW+tCvv92PArzlml/b7kqTxZGlZ4DA+7xjrPGhRX4NnzzPX+glTrTz68X3IsmAdntKjBfG0Nw3Wnh7Mkvxwezil1SWI+3YvdPQ85CCAeAnDR94SFFm7zEBpsSXgod1lnZz6CsjCK7G+IDCaojkYJzL7YhA4rZrpNwvDziNa01hi4Fo8vSqBV7cG4FOqhqBWEscgSF5EX5bhN/RS3SOjQ7EVVrpuht3VUkiaoE52NKcNI77MJgGTYLxBU="
-        # DOCKER_USERNAME
-        - secure: "JqFkJs0Zn8L+Ig6292quSdS+1kLNhDh4JlFfRzdjSDFMxKtrVHSA290e3pMHOY5gm5YE5/cM3RkaQ6f5I2p2XU5V+5N1cEGKvTcBq0H7JpXJtIwPWTMxyjtEHhzjYlwdkmfyU1ALGlZtTE/1O3H2UYeluvwrfHplXaL86kF4O3dSQdXh6Q2AS8A74lWe+SpZTQTPH1onvSxjoP5WOi9/Rzq+5zSMfPJO4Z+01wUpkQIyXnbLBFkOnlINfbz0dFiZzyn4c/3S86BZGT82d8s2xOnDC1fYREzuJ5Jeeh0x2arN+ef97z/An6Mly8K7LGScjfPZrXVIhZefe4X5/Xz3j5oq0t7EY7/+qiJaWeDGlUiZFX/xWk5wsnNyqLQwt8/Rzn1HuIju5ilBHpShIFvwPjCbb7gMHHD6FKzfR73N0cgi7xfFJMrpz9KIGNHgg7Ge4mLU5PXGWbWP1ZAKQ55HuIcwvL4SXiu4Riz+mfmRyAAFTkvVSHdWk2Qmt5LsC+BMZYubYLsJstBVa9lNT1ReVxfD66FFZoTXp7gb25RGp+Ni4FEZNAWhlZ316jT85co/7J9a0ogh7NQCdufLQfN119N870gNvd+yc2pQ0lrtfwVdRqUHraxgluQjNIJx1e92cMIYcVmByuQa7kcDr4WukDiHScnj3AHlVhiMtzx//b8="
-        # DOCKER_API_TOKEN
-        - secure: "g4aB7UxndZFadqSQG12g9zP8Knj2MSCJxqDCHm03kSqSkc2A0BeYBsWYB0+xXgmjQMyaD+MXIYEX8sM+mh47+yqPKkuB+N14L3MgUcfG8MN7XxrDhDV7YICsEpGYC8Vq5ZBqiRQGeLyPHOZI3faD2kxqZ0wSXvUyeieeZBNMub83HrX4oCA6INaQhCZTllC4Bfi84KhnDuVy59fv6p02V/Wy69pxbXk8TW58k7U8B6+mSuUyRDiE4OQcr73/1o3nfbXxPmQJ9K0R2Q1XX4kMMGEpPTtX9tnI4KDjrkUa0i6VrBjRuwF0ugHryX/nDZFjv8ukugFzAvz++9+hZowFrq4bSRPVve0IGrRXC75raPGIGanq1+2BV/40VLnmg3Zor6QBOCNxxNDFN9T6vCMA3bAPTOR/fWdKb67pWFdcGD7bucO2FNDczereEWg/uApOb/HuHikU5YwIE+URusXKNQjkEDLSCv9I8W4Eb43uztZFPD4F4HGex7qIRK6qnFktGI/C9g337U+TW7QkuA6sqt43yXV7ptSekO5SGBxj6biyyd1DRR5LZUXTOiYyEWrcXM93TbKYKTk24A8jHyarGjpICk1sD8WytyWKAXQlK8ATB/5myEKfEJAtGq+4TtD3I2NwZJF439FQwJJVIKLwx8EuKF+ba+vPHnNQVkbhG34="
       script:
         # Git fix based on: https://github.com/sbt/sbt-release/issues/210
         - echo "Fixing git setup for $TRAVIS_BRANCH in preparation for release"
@@ -46,10 +63,3 @@ jobs:
         - echo "Maven artifacts release steps"
         - mvn -e --batch-mode release:prepare -DscmCommentPrefix="[maven-release-plugin][skip travis]"
         - mvn release:perform -Pbintray
-        # Release Docker Image(s)
-        - echo "Docker image(s) release steps"
-        - echo "$DOCKER_API_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin ctjoreilly-docker-test-image-repository.bintray.io
-        - cd ./target/classes
-        - chmod 764 *.sh
-        - ./docker-build.sh
-        - ./docker-push.sh
